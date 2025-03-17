@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const Api = createApi({
   reducerPath: "Api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api/",
+    baseUrl: "https://storexbackend-production.up.railway.app/",
     prepareHeaders: async (headers, { getState }) => {
       const token = await window.Clerk?.session?.getToken();
       if (token) {
@@ -18,23 +18,23 @@ export const Api = createApi({
 
   endpoints: (builder) => ({
     getProducts: builder.query({
-      query: () => `products`,
+      query: () => `api/products`,
     }),
     getCategories: builder.query({
-      query: () => `categories`,
+      query: () => `api/categories`,
     }),
     getOrder: builder.query({
-      query: (id) => `orders/${id}`,
+      query: (id) => `api/orders/${id}`,
     }),
     createOrder: builder.mutation({
       query: (body) => ({
-        url: `orders`,
+        url: `api/orders`,
         method: "POST",
         body,
       }),
     }),
     getProduct: builder.query({
-      query: (id) => `/products/${id}`,
+      query: (id) => `api/products/${id}`,
     }),
   }),
 });
